@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <string>
 
 class Line {
@@ -50,13 +50,25 @@ public:
                     }
                 }
                 else {
-                    s.push_back(str[i] + temp);
-                    temp = 0;
+                    if (str[i] - '0' + temp > 9) {
+                        s.push_back(str[i] + temp);
+
+                    }
+                    else {
+                        s.push_back(str[i] + temp);
+                        temp = 0;
+                    }
                 }
             }
             else {
-                s.push_back(a.str[j] + temp);
-                temp = 0;
+                if (a.str[i] - '0' + temp > 9) {
+                    s.push_back(a.str[i] + temp);
+
+                }
+                else {
+                    s.push_back(a.str[i] + temp);
+                    temp = 0;
+                }
             }
             i--;
             j--;
@@ -66,8 +78,7 @@ public:
             s.push_back('1');
         }
         std::reverse(s.begin(), s.end());
-        this->str = s;
-        return *this;
+        return s;
     }
 
     Integer operator-(Integer a) {
@@ -111,8 +122,7 @@ public:
             s.push_back('-');
         }
         std::reverse(s.begin(), s.end());
-        this->str = s;
-        return *this;
+        return s;
     }
 };
 
@@ -126,24 +136,25 @@ public:
     ~Row() {};
 
     Row operator+(Row a) {
-        this->str = this->str + a.str;
-        return *this;
+        std::string s = this->str + a.str;
+        return s;
     }
 
     Row operator-(Row a) {
         int i = 0;
+        std::string s = this->str;
         while ( i < a.str.size()) {
             int j = 0;
-            while (j < this->str.size()) {
-                if (this->str[j] == a.str[i]) {
-                    this->str.erase(j, 1);
+            while (j < s.size()) {
+                if (s[j] == a.str[i]) {
+                    s.erase(j, 1);
                     break;
                 }
                 j++;
             }
             i++;
         }
-        return *this;
+        return s;
     }  
 };
 
